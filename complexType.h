@@ -3,7 +3,6 @@
 //
 
 //Specification file complexType.h
-
 #ifndef H_complexNumber
 #define H_complexNumber
 
@@ -17,7 +16,7 @@ class complexType
     friend ostream& operator<< (ostream&, const complexType&);
     friend istream& operator>> (istream&, complexType&);
 
-    friend	complexType operator+(const complexType& one,
+    friend complexType operator+(const complexType& one,
                                     const complexType& two);
     //overload +
     friend complexType operator*(const complexType& one,
@@ -50,3 +49,4 @@ private:
     double imaginaryPart; // variable to store the imaginary part
 };
 
+#endif //H_complexNumber

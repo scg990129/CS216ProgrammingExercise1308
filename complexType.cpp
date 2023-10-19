@@ -30,10 +30,11 @@ istream& operator>> (istream& is, complexType& complex)
     return is;
 }
 
-bool complexType::operator==(const complexType& otherComplex) const
-{
-    return(realPart == otherComplex.realPart &&
-           imaginaryPart == otherComplex.imaginaryPart);
+//friend bool operator==(const complexType& one,
+//                       const complexType& two);
+bool operator==(const complexType& one, const complexType& two){
+    return one.realPart == two.realPart &&
+            one.imaginaryPart == two.imaginaryPart;
 }
 
 //constructor
@@ -56,62 +57,66 @@ void complexType::getComplex(double& real, double& imag) const
 }
 
 //overload the operator +
-complexType complexType::operator+(const complexType& otherComplex) const
-{
+//friend complexType operator+(const complexType& one,
+//                             const complexType& two);
+complexType operator+(const complexType& one,
+                             const complexType& two){
     complexType temp;
 
-    temp.realPart = realPart + otherComplex.realPart;
-    temp.imaginaryPart = imaginaryPart + otherComplex.imaginaryPart;
+    temp.realPart = one.realPart + two.realPart;
+    temp.imaginaryPart = one.imaginaryPart + two.imaginaryPart;
 
     return temp;
 }
 
 //overload the operator *
-complexType complexType::operator*(const complexType& otherComplex) const
-{
+//friend complexType operator*(const complexType& one,
+//                             const complexType& two);
+complexType operator*(const complexType& one, const complexType& two){
     complexType temp;
 
-    temp.realPart = (realPart * otherComplex.realPart) -
-                    (imaginaryPart*otherComplex.imaginaryPart);
-    temp.imaginaryPart = (realPart * otherComplex.imaginaryPart) +
-                         (imaginaryPart * otherComplex.realPart);
+    temp.realPart = (one.realPart * two.realPart) -
+                    (one.imaginaryPart*two.imaginaryPart);
+    temp.imaginaryPart = (one.realPart * two.imaginaryPart) +
+                         (one.imaginaryPart * two.realPart);
     return temp;
 }
 
-complexType complexType::operator-(const complexType& otherComplex) const
-{
+//friend complexType operator-(const complexType& one,
+//                             const complexType& two);
+complexType operator-(const complexType& one, const complexType& two){
     complexType temp;
 
-    temp.realPart = realPart - otherComplex.realPart;
-    temp.imaginaryPart = imaginaryPart - otherComplex.imaginaryPart;
+    temp.realPart = one.realPart - two.realPart;
+    temp.imaginaryPart = one.imaginaryPart - two.imaginaryPart;
 
     return temp;
 }
 
-complexType complexType::operator/(const complexType& otherComplex) const
-{
+//friend complexType operator/(const complexType& one,
+//                             const complexType& two);
+complexType operator/(const complexType& one, const complexType& two){
     complexType temp;
 
     double denominator;
 
-    if (otherComplex.realPart == 0 && otherComplex.imaginaryPart == 0)
+    if (two.realPart == 0 && two.imaginaryPart == 0)
     {
         cout << "Cannot divide by zero" << endl;
-        return otherComplex;
+        return two;
     }
     else
     {
-        denominator = otherComplex.realPart * otherComplex.realPart +
-                      otherComplex.imaginaryPart * otherComplex.imaginaryPart;
+        denominator = two.realPart * two.realPart +
+                two.imaginaryPart * two.imaginaryPart;
 
 
-        temp.realPart = ((realPart * otherComplex.realPart) +
-                         (imaginaryPart * otherComplex.imaginaryPart)) /
+        temp.realPart = ((one.realPart * two.realPart) +
+                         (one.imaginaryPart * two.imaginaryPart)) /
                         denominator ;
-        temp.imaginaryPart = ((- realPart * otherComplex.imaginaryPart) +
-                              (imaginaryPart * otherComplex.realPart)) /
+        temp.imaginaryPart = ((- 1* one.realPart * two.imaginaryPart) +
+                              (one.imaginaryPart * two.realPart)) /
                              denominator;
         return temp;
     }
-
 }
